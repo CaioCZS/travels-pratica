@@ -7,7 +7,7 @@ export async function healthCheck(req, res) {
 
 export async function getTravelers(req, res) {
   const page = req.query.page ? Number(req.query.page) : null
-  if (page && typeof page !== "number") {
+  if (page <= 0 || isNaN(page)) {
     return res.status(httpStatus.BAD_REQUEST).send("Invalid page value")
   }
   const travels = await serviceDBtravels(page)
